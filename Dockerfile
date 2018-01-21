@@ -1,6 +1,5 @@
-FROM 9.4.0-alpine
+FROM node:9.4.0
 MAINTAINER wiski
-EXPOSE 8080
 ARG NPM_TOKEN
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app

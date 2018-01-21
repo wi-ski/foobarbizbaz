@@ -1,0 +1,113 @@
+version: "2"
+services:
+  redis:
+    container_name: make-dat-money-redis-container
+    image: redis:3.2.11
+    ports:
+      - "0.0.0.0:6379:6379/tcp"
+    volumes:
+      - ./data/redis:/data
+    networks:
+      - make_dat_money_network
+  web:
+    container_name: make-dat-money-web-container
+    build: .
+    ports:
+      - "0.0.0.0:8080:8080"
+    networks:
+      - make_dat_money_network
+
+  # mongo:
+  #     container_name: cosa-nostra-application-database-container
+  #     image: mongo:3.4.1
+  #     ports:
+  #         - "0.0.0.0:27020:27019/tcp"
+  #     command: mongod --port 27019
+  #     volumes:
+  #         - ./data/mongo:/data/db
+  #         # - ~/data/mongo:/data/db # Theres still data here from crawling.
+  #     networks:
+  #         - primary_cnostra_nework
+  # rabbit:
+  #     container_name: cosa-nostra-rabbitmq-container
+  #     image: rabbitmq:3.7
+  #     ports:
+  #         - "15672:15672"
+  #         - "5672:5672"
+  #         - "4369:4369"
+  #         - "25672:25672"
+  #     volumes:
+  #         - ./data/rabbitmq:/data/log
+  #         - ./data/mnesia:/data/mnesia
+  # iri:
+  #     container_name: cosa-nostra-iota-reference-implementation
+  #     image: bluedigits/iota-node
+  #     environment:
+  #       API_PORT: 14265
+  #       TCP_PORT: 15600
+  #       UDP_PORT: 14600
+  #     ports:
+  #         - "15600:15600"
+  #         - "14265:14265"
+  #         - "14600:14600"
+  #     volumes:
+  #         - ./data/iri:/data/iri
+  #     network_mode: "host"
+  # nelson:
+  #     container_name: cosa-nostra-nelson
+  #     image: romansemko/nelson
+  #     environment:
+  #       API_PORT: 14265
+  #       TCP_PORT: 15600
+  #       UDP_PORT: 14600
+  #     ports:
+  #         - "18600:18600"
+  #     volumes:
+  #         - ./data/iri:/data/iri
+  #     network_mode: "host"
+  # zookeeper:
+  #   container_name: cosa-nostra-zookeeper-container
+  #   image: wurstmeister/zookeeper
+  #   ports:
+  #     - "2181:2181"
+  # kafka:
+  #   container_name: cosa-nostra-kafka-container
+  #   image: wurstmeister/kafka
+  #   ports:
+  #     - "9092:9092"
+  #   environment:
+  #     KAFKA_ADVERTISED_PORT: 9092
+  #     KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+  #     KAFKA_CREATE_TOPICS: "t:1:1"
+  #     # KAFKA_ADVERTISED_HOST_NAME: ${DOCKER_KAFKA_HOST}
+  #     KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  # elasticsearch:
+  #     # Default user: elastic
+  #     # Default password: changeme
+  #     mem_limit: '8000m'
+  #     container_name: elasticsearch
+  #     image: docker.elastic.co/elasticsearch/elasticsearch:5.6.1
+  #     ports:
+  #         - "9201:9200"
+  #         # - "9300:9300"
+  #     command: elasticsearch -Expack.security.enabled=false
+  #     volumes:
+  #         - ./data/elasticsearch:/usr/share/elasticsearch/data
+  #     networks:
+  #         - primary_cnostra_nework
+  # kibana:
+  #     container_name: cosa-nostra-kibana-container
+  #     image: docker.elastic.co/kibana/kibana:5.6.1
+  #     ports:
+  #         - "5601:5601"
+  #     # volumes:
+  #     #     - ./kibana.yml:/usr/share/kibana/config/kibana.yml
+  #     environment:
+  #         - ELASTICSEARCH_URL=http://elasticsearch:9200
+  #     networks:
+  #         - primary_cnostra_nework
+networks:
+    make_dat_money_network:
+        driver: bridge
