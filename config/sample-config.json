@@ -1,0 +1,15 @@
+{
+  "environment": "development",
+  "hydra": {
+    "serviceName": "make-dat-money-service",
+    "serviceIP": "",
+    "servicePort": 8080,
+    "serviceType": "make-dat-money",
+    "serviceDescription": "Make dat money",
+    "redis": {
+      "url": "127.0.0.1",
+      "port": 6379,
+      "db": 15
+    }
+  }
+}
